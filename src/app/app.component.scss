@@ -4,7 +4,7 @@
 
 .app-sidenav {
   width: 400px;
-  background: linear-gradient(180deg, #331597 0%, #6341f7 100%);
+  background: linear-gradient(180deg, #4713f5 0%, #6341f7 100%);
   border-radius: 0 !important;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -14,12 +14,20 @@
   text-align: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s ease;
+
   h1 {
     color: white;
     margin: 0;
-    font-weight: 500;
-    font-size: 1.5rem;
+    font-weight: bold;
   }
+}
+.logo-image {
+  width: 100px;
+  height: auto;
 }
 
 ::ng-deep .app-sidenav {

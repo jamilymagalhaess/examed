@@ -1,8 +1,11 @@
 <mat-sidenav-container class="app-container">
-  <mat-sidenav mode="side" opened class="app-sidenav">
+
+  <mat-sidenav #sidenav mode="side" opened class="app-sidenav">
     <div class="logo-container">
+      <img src="assets/images/Logo-crehana-2024.png" alt="Logo Examed" class="logo-image">
       <h1>EXAMED</h1>
     </div>
+
     <mat-nav-list>
       <a mat-list-item routerLink="/agendar-exame" routerLinkActive="active">
         <mat-icon>event</mat-icon>

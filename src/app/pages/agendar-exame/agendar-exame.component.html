@@ -1,1 +1,81 @@
-<p>agendar-exame works!</p>
+<div class="agendamento-container">
+  <h2>Agendamento de Exame</h2>
+
+  <form [formGroup]="agendamentoForm" (ngSubmit)="onSubmit()" class="agendamento-form">
+    <div class="form-row duo">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome do paciente</mat-label>
+        <input matInput formControlName="nome" required>
+        <mat-error *ngIf="agendamentoForm.get('nome')?.hasError('required')">
+          Nome é obrigatório
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>CPF do paciente</mat-label>
+        <input matInput formControlName="cpf" mask="000.000.000-00" required>
+        <mat-error *ngIf="agendamentoForm.get('cpf')?.hasError('required')">
+          CPF é obrigatório
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row duo">
+      <mat-form-field appearance="outline">
+        <mat-label>E-mail do paciente</mat-label>
+        <input matInput formControlName="email" type="email" required>
+        <mat-error *ngIf="agendamentoForm.get('email')?.hasError('required')">
+          E-mail é obrigatório
+        </mat-error>
+        <mat-error *ngIf="agendamentoForm.get('email')?.hasError('email')">
+          Digite um e-mail válido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Cartão do SUS</mat-label>
+        <input matInput formControlName="cartaoSus" mask="000 0000 0000 0000" required>
+        <mat-error *ngIf="agendamentoForm.get('cartaoSus')?.hasError('required')">
+          Cartão do SUS é obrigatório
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row duo">
+      <mat-form-field appearance="outline">
+        <mat-label>Tipo de exame</mat-label>
+        <mat-select formControlName="tipoExame" required>
+          <mat-option *ngFor="let tipo of tiposExame" [value]="tipo">
+            {{tipo}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="agendamentoForm.get('tipoExame')?.hasError('required')">
+          Tipo de exame é obrigatório
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Data do exame</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dataExame" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="agendamentoForm.get('dataExame')?.hasError('required')">
+          Data do exame é obrigatória
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Instruções</mat-label>
+        <textarea matInput formControlName="instrucoes" rows="3"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!agendamentoForm.valid">
+        AGENDAR
+      </button>
+    </div>
+  </form>
+</div>
