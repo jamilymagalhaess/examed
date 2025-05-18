@@ -1,1 +1,35 @@
-<p>cadastrar-exame works!</p>
+<div class="cadastro-container">
+  <h2>Cadastrar Novo Exame</h2>
+
+  <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" class="cadastro-form">
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome do Exame</mat-label>
+        <input matInput formControlName="nomeExame" required>
+        <mat-error *ngIf="cadastroForm.get('nomeExame')?.hasError('required')">
+          Nome do exame é obrigatório
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Código do Exame (opcional)</mat-label>
+        <input matInput formControlName="codigoExame">
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Descrição (opcional)</mat-label>
+        <textarea matInput formControlName="descricao" rows="3"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!cadastroForm.valid">
+        CADASTRAR
+      </button>
+    </div>
+  </form>
+</div>
