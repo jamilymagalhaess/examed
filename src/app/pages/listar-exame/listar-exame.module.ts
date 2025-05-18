@@ -1,14 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 import { ListarExameRoutingModule } from './listar-exame-routing.module';
-
+import { ListarExameComponent } from './listar-exame.component';
+import { provideNgxMask, NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { ConfirmDialogModule } from '../../shared/components/confirm-dialog/confirm-dialog.module';
 
 @NgModule({
-  declarations: [],
+  declarations: [ListarExameComponent],
   imports: [
     CommonModule,
-    ListarExameRoutingModule
-  ]
+    ListarExameRoutingModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatDialogModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
+    ConfirmDialogModule,
+  ],
 })
-export class ListarExameModule { }
+export class ListarExameModule {}
