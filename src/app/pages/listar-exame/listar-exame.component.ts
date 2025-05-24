@@ -3,7 +3,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from '../../shared/components/confirm-dialog/confirm-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 // import { ExameService } from '../services/exame.service';
 
@@ -89,47 +88,6 @@ export class ListarExameComponent implements OnInit {
 
   editarAgendamento(agendamento: Agendamento): void {
     this.router.navigate(['/agendar-exame', agendamento.id]);
-  }
-
-  cancelarAgendamento(agendamento: Agendamento): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '400px',
-      data: {
-        title: 'Confirmar Cancelamento',
-        message: `Deseja realmente cancelar o agendamento de ${agendamento.nome} para ${agendamento.tipoExame}?`,
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        // Simulando exclusão - substitua pela chamada real ao serviço
-        this.dataSource.data = this.dataSource.data.filter(
-          (a) => a.id !== agendamento.id
-        );
-        this.snackBar.open('Agendamento cancelado com sucesso!', 'Fechar', {
-          duration: 5000,
-          panelClass: ['success-snackbar'],
-        });
-
-        // Chamada real ao serviço (descomente quando implementar)
-        // this.exameService.cancelarAgendamento(agendamento.id).subscribe({
-        //   next: () => {
-        //     this.carregarAgendamentos();
-        //     this.snackBar.open('Agendamento cancelado com sucesso!', 'Fechar', {
-        //       duration: 5000,
-        //       panelClass: ['success-snackbar']
-        //     });
-        //   },
-        //   error: (err) => {
-        //     console.error('Erro ao cancelar agendamento:', err);
-        //     this.snackBar.open('Erro ao cancelar agendamento', 'Fechar', {
-        //       duration: 5000,
-        //       panelClass: ['error-snackbar']
-        //     });
-        //   }
-        // });
-      }
-    });
   }
 
   applyFilter(event: Event) {

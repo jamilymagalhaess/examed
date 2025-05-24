@@ -7,7 +7,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ListarExameRoutingModule } from './listar-exame-routing.module';
 import { ListarExameComponent } from './listar-exame.component';
 import { provideNgxMask, NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
-import { ConfirmDialogModule } from '../../shared/components/confirm-dialog/confirm-dialog.module';
 
 @NgModule({
   declarations: [ListarExameComponent],
@@ -20,7 +19,6 @@ import { ConfirmDialogModule } from '../../shared/components/confirm-dialog/conf
     MatDialogModule,
     NgxMaskDirective,
     NgxMaskPipe,
-    ConfirmDialogModule,
   ],
 })
 export class ListarExameModule {}
