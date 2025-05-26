@@ -2,19 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-// import { ExameService } from '../services/exame.service';
-
-interface Agendamento {
-  id: number;
-  nome: string;
-  cpf: string;
-  tipoExame: string;
-  dataExame: Date;
-  email: string;
-  cartaoSus: string;
-}
+import { ExameService } from '../../services/exame.service';
+import { Agendamento } from '../../models/exame';
 
 @Component({
   selector: 'app-listar-exame',
@@ -23,15 +12,14 @@ interface Agendamento {
   standalone: false,
 })
 export class ListarExameComponent implements OnInit {
-  displayedColumns: string[] = ['nome', 'cpf', 'exame', 'data'];
+  displayedColumns: string[] = ['nome', 'cpf', 'exame', 'data','hora'];
   dataSource = new MatTableDataSource<Agendamento>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private router: Router,
-    private dialog: MatDialog,
-    private snackBar: MatSnackBar // private exameService: ExameService
+    private exameService: ExameService
   ) {}
 
   ngOnInit(): void {
@@ -43,41 +31,35 @@ export class ListarExameComponent implements OnInit {
   }
 
   carregarAgendamentos(): void {
-    // Simulando dados - substitua pela chamada real ao serviço
-    const dadosMock: Agendamento[] = [
-      {
-        id: 1,
-        nome: 'João Silva',
-        cpf: '12345678901',
-        tipoExame: 'Hemograma Completo',
-        dataExame: new Date('2023-12-15'),
-        email: 'joao@email.com',
-        cartaoSus: '123456789012345',
-      },
-      {
-        id: 2,
-        nome: 'Maria Oliveira',
-        cpf: '98765432109',
-        tipoExame: 'Ultrassonografia Abdominal',
-        dataExame: new Date('2023-12-20'),
-        email: 'maria@email.com',
-        cartaoSus: '987654321098765',
-      },
-    ];
+  const dadosMock: Agendamento[] = [
+    {
+      nome_paciente: "Ana Souza",
+      email_paciente: "ana.souza@email.com",
+      data_hora: "2025-06-01T09:30:00",
+      id_exame: 1,
+      tipo_exame: "Hemograma Completo",
+      instrucoes: "Jejum de 8 horas",
+      cpf: "123.456.789-00",
+      cartao_sus: "1234 5678 9012 3456"
+    },
+    {
+      nome_paciente: "Carlos Pereira",
+      email_paciente: "carlos.pereira@email.com",
+      data_hora: "2025-06-02T14:00:00",
+      id_exame: 2,
+      tipo_exame: "Raio-X Torácico",
+      instrucoes: "Não precisa de jejum",
+      cpf: "987.654.321-00",
+      cartao_sus: "6543 2109 8765 4321"
+    }
+  ];
 
-    this.dataSource.data = dadosMock;
+      this.dataSource.data = dadosMock;
 
-    // Chamada real ao serviço (descomente quando implementar)
-    // this.exameService.listarAgendamentos().subscribe({
+    // this.exameService.getAgendamentos().subscribe({
     //   next: (agendamentos) => {
+    //     debugger
     //     this.dataSource.data = agendamentos;
-    //   },
-    //   error: (err) => {
-    //     console.error('Erro ao carregar agendamentos:', err);
-    //     this.snackBar.open('Erro ao carregar agendamentos', 'Fechar', {
-    //       duration: 5000,
-    //       panelClass: ['error-snackbar']
-    //     });
     //   }
     // });
   }
@@ -86,12 +68,10 @@ export class ListarExameComponent implements OnInit {
     this.router.navigate(['/agendar-exame']);
   }
 
-  editarAgendamento(agendamento: Agendamento): void {
-    this.router.navigate(['/agendar-exame', agendamento.id]);
-  }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+
 }

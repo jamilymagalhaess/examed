@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   DateAdapter,
@@ -11,7 +11,7 @@ import {
 } from '@angular/material-moment-adapter';
 import { ExameService } from '../../services/exame.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Agendamento } from '../../models/exame';
+import { Agendamento, Exame } from '../../models/exame';
 
 export const MY_FORMATS = {
   parse: {
@@ -41,46 +41,38 @@ export const MY_FORMATS = {
 })
 export class AgendarExameComponent implements OnInit {
   agendamentoForm: FormGroup;
-  tiposExame = [
-    { id: 1, nome: 'Hemograma Completo' },
-    { id: 2, nome: 'Glicemia em Jejum' },
-    { id: 3, nome: 'Colesterol Total' },
-    { id: 4, nome: 'Urina Tipo 1' },
-    { id: 5, nome: 'Eletrocardiograma' },
-    { id: 6, nome: 'Ultrassonografia Abdominal' },
-  ];
+  tipoExame: Exame[] = [];
 
   constructor(
     private fb: FormBuilder,
     private exameService: ExameService,
     private snackBar: MatSnackBar
   ) {
-    this.agendamentoForm = this.fb.group({
-      nome: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      tipoExame: ['', Validators.required],
-      instrucoes: [''],
-      cpf: ['', Validators.required],
-      cartaoSus: ['', Validators.required],
-      dataExame: ['', Validators.required],
-    });
+   this.agendamentoForm = this.fb.group({
+    nome_paciente: ['', Validators.required],
+    email_paciente: ['', [Validators.required, Validators.email]],
+    id_exame: ['', Validators.required],
+    instrucoes: [''],
+    cpf: ['', Validators.required],
+    cartao_sus: ['', Validators.required],
+    data_hora: ['', Validators.required],
+  });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(){
+     this.exameService.recuperaExames().subscribe({
+      next: (response) => {
+        this.tipoExame = response.exames;
+      }
+    });
+  }
 
   onSubmit(): void {
     const formValue = this.agendamentoForm.value;
 
-    const dataHoraISO = new Date(formValue.dataExame);
-    dataHoraISO.setHours(9, 30, 0, 0);
     const payload: Agendamento = {
-      data_hora: this.formatDateToMySQL(dataHoraISO),
-      id_exame: Number(formValue.tipoExame),
-      instrucoes: formValue.instrucoes,
-      nome_paciente: formValue.nome,
-      email_paciente: formValue.email,
-      cpf: formValue.cpf,
-      cartao_sus: formValue.cartaoSus,
+      ...formValue,
+      data_hora: this.formatDateToMySQL(formValue.data_hora)
     };
 
     this.exameService.agendaExame(payload).subscribe({
@@ -95,11 +87,12 @@ export class AgendarExameComponent implements OnInit {
   }
 
   formatDateToMySQL(date: Date): string {
-    const pad = (n: number) => n.toString().padStart(2, '0');
-    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(
-      date.getDate()
-    )} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(
-      date.getSeconds()
-    )}`;
-  }
+  const dataHora = new Date(date);
+  dataHora.setHours(9, 30, 0, 0); // Define hora como 09:30:00
+
+  const pad = (n: number) => n.toString().padStart(2, '0');
+
+  return `${dataHora.getFullYear()}-${pad(dataHora.getMonth() + 1)}-${pad(dataHora.getDate())} ${pad(dataHora.getHours())}:${pad(dataHora.getMinutes())}:${pad(dataHora.getSeconds())}`;
+}
+
 }

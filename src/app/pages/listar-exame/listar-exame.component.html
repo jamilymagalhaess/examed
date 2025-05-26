@@ -6,7 +6,7 @@
       <!-- Nome Column -->
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef> Paciente </th>
-        <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.nome_paciente}} </td>
       </ng-container>
 
       <!-- CPF Column -->
@@ -18,13 +18,19 @@
       <!-- Exame Column -->
       <ng-container matColumnDef="exame">
         <th mat-header-cell *matHeaderCellDef> Exame </th>
-        <td mat-cell *matCellDef="let element"> {{element.tipoExame}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.tipo_exame}} </td>
       </ng-container>
 
       <!-- Data Column -->
       <ng-container matColumnDef="data">
         <th mat-header-cell *matHeaderCellDef> Data </th>
-        <td mat-cell *matCellDef="let element"> {{element.dataExame | date: 'dd/MM/yyyy'}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.data_hora | date: 'dd/MM/yyyy'}} </td>
+      </ng-container>
+
+      <!-- Hora Column -->
+      <ng-container matColumnDef="hora">
+        <th mat-header-cell *matHeaderCellDef> Horário </th>
+        <td mat-cell *matCellDef="let element"> {{element.data_hora | date: 'HH:mm'}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -7,7 +7,7 @@ import { Agendamento, Exame } from '../models/exame';
   providedIn: 'root',
 })
 export class ExameService {
-  private baseUrl = 'http://192.168.1.19:8080/api';
+  private baseUrl = 'http://10.0.66.205:8080/api';
 
   constructor(private http: HttpClient) {}
 
@@ -15,8 +15,8 @@ export class ExameService {
     return this.http.get<Agendamento[]>(`${this.baseUrl}/agendamentos`);
   }
 
-  recuperaExames(): Observable<Exame[]> {
-    return this.http.get<Exame[]>(`${this.baseUrl}/recupera-exames`);
+  recuperaExames(): Observable<{ exames: Exame[] }> {
+    return this.http.get<{ exames: Exame[] }>(`${this.baseUrl}/recupera-exames`);
   }
 
   cadastraExame(exame: Exame): Observable<any> {
