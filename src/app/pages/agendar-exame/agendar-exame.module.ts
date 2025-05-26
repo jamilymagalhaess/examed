@@ -11,6 +11,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { provideNgxMask, NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { AgendarExameComponent } from './agendar-exame.component';
 import { AgendarExameRoutingModule } from './agendar-exame-routing.module';
+import { LOCALE_ID } from '@angular/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   imports: [
@@ -27,7 +29,12 @@ import { AgendarExameRoutingModule } from './agendar-exame-routing.module';
     NgxMaskDirective,
     NgxMaskPipe,
   ],
-  providers: [provideNgxMask()],
+  providers: [
+    provideNgxMask(),
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+  ],
   declarations: [AgendarExameComponent],
+  exports: [AgendarExameComponent],
 })
 export class AgendarExameModule {}

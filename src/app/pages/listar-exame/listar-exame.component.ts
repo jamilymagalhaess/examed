@@ -23,7 +23,7 @@ interface Agendamento {
   standalone: false,
 })
 export class ListarExameComponent implements OnInit {
-  displayedColumns: string[] = ['nome', 'cpf', 'exame', 'data', 'acoes'];
+  displayedColumns: string[] = ['nome', 'cpf', 'exame', 'data'];
   dataSource = new MatTableDataSource<Agendamento>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

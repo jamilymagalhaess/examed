@@ -45,8 +45,8 @@
       <mat-form-field appearance="outline">
         <mat-label>Tipo de exame</mat-label>
         <mat-select formControlName="tipoExame" required>
-          <mat-option *ngFor="let tipo of tiposExame" [value]="tipo">
-            {{tipo}}
+          <mat-option *ngFor="let tipo of tiposExame" [value]="tipo.id">
+            {{ tipo.nome }}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="agendamentoForm.get('tipoExame')?.hasError('required')">
