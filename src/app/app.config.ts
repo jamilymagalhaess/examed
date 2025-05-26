@@ -1,4 +1,4 @@
-import { ApplicationConfig, LOCALE_ID } from '@angular/core';
+import { ApplicationConfig, LOCALE_ID, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { routes } from './app.routes';
@@ -10,6 +10,7 @@ import {
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import localePtExtra from '@angular/common/locales/extra/pt';
+import { LayoutModule } from '@angular/cdk/layout';
 
 // Registra os dados de localização para português
 registerLocaleData(localePt, 'pt-BR', localePtExtra);
@@ -23,5 +24,6 @@ export const appConfig: ApplicationConfig = {
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
 
     provideNativeDateAdapter(),
+    importProvidersFrom(LayoutModule),
   ],
 };

@@ -1,3 +1,13 @@
+
+<div class="wrapper-container">
+   <div class="vertical-line">
+      <mat-toolbar color="primary">
+      <button mat-icon-button (click)="sidenav.toggle()" aria-label="Toggle sidenav">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </mat-toolbar>
+ </div>
+
 <mat-sidenav-container class="app-container">
 
   <mat-sidenav #sidenav mode="side" opened class="app-sidenav">
@@ -28,3 +38,4 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+</div>
