@@ -35,6 +35,8 @@ export class CadastrarExameComponent implements OnInit {
           this.snackBar.open('Exame cadastrado com sucesso!', 'Fechar', {
             duration: 5000,
             panelClass: ['success-snackbar'],
+            horizontalPosition: 'end',
+            verticalPosition: 'bottom',
           });
           this.cadastroForm.reset();
         }

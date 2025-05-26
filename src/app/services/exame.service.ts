@@ -11,8 +11,8 @@ export class ExameService {
 
   constructor(private http: HttpClient) {}
 
-  getAgendamentos(): Observable<Agendamento[]> {
-    return this.http.get<Agendamento[]>(`${this.baseUrl}/agendamentos`);
+  getAgendamentos(): Observable<{agendamentos: Agendamento[]}> {
+    return this.http.get<{agendamentos: Agendamento[]}>(`${this.baseUrl}/agendamentos`);
   }
 
   recuperaExames(): Observable<{ exames: Exame[] }> {

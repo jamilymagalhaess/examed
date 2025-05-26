@@ -1,7 +1,7 @@
-<div class="agendamento-container">
+<div class="container">
   <h2>Agendamento de Exame</h2>
 
-  <form [formGroup]="agendamentoForm" (ngSubmit)="onSubmit()" class="agendamento-form">
+  <form [formGroup]="agendamentoForm" (ngSubmit)="onSubmit()" class="form">
     <div class="form-row duo">
       <mat-form-field appearance="outline">
         <mat-label>Nome do paciente</mat-label>
@@ -42,17 +42,22 @@
     </div>
 
     <div class="form-row duo">
-      <mat-form-field appearance="outline">
-        <mat-label>Tipo de exame</mat-label>
-       <mat-select formControlName="id_exame" required>
-        <mat-option *ngFor="let tipo of tipoExame" [value]="tipo.id_exame">
+     <mat-form-field appearance="outline">
+      <mat-label>Tipo de exame</mat-label>
+      <mat-select formControlName="id_exame" required>
+        <mat-option
+          *ngFor="let tipo of tipoExame"
+          [value]="tipo.id_exame"
+          (click)="onExameSelecionado(tipo.id_exame)"
+        >
           {{ tipo.tipo_exame }}
         </mat-option>
       </mat-select>
-        <mat-error *ngIf="agendamentoForm.get('tipoExame')?.hasError('required')">
-          Tipo de exame é obrigatório
-        </mat-error>
-      </mat-form-field>
+
+      <mat-error *ngIf="agendamentoForm.get('id_exame')?.hasError('required')">
+        Tipo de exame é obrigatório
+      </mat-error>
+    </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Data do exame</mat-label>
@@ -73,7 +78,7 @@
     </div>
 
     <div class="form-actions">
-      <button mat-raised-button color="primary" type="submit" [disabled]="!agendamentoForm.valid">
+      <button mat-raised-button color="primary" type="submit">
         AGENDAR
       </button>
     </div>

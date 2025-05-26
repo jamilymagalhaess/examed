@@ -1,7 +1,7 @@
-<div class="cadastro-container">
+<div class="container">
   <h2>Cadastrar Novo Exame</h2>
 
-  <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" class="cadastro-form">
+  <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" class="form">
     <div class="form-row">
       <mat-form-field appearance="outline">
         <mat-label>Nome do Exame</mat-label>
@@ -20,7 +20,7 @@
     </div>
 
     <div class="form-actions">
-      <button mat-raised-button color="primary" type="submit" [disabled]="!cadastroForm.valid">
+      <button mat-raised-button color="primary" type="submit" >
         CADASTRAR
       </button>
     </div>

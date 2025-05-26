@@ -80,6 +80,8 @@ export class AgendarExameComponent implements OnInit {
         this.snackBar.open('Exame agendado com sucesso!', 'Fechar', {
           duration: 5000,
           panelClass: ['success-snackbar'],
+          horizontalPosition: 'end',
+          verticalPosition: 'bottom',
         });
         this.agendamentoForm.reset();
       },
@@ -87,12 +89,22 @@ export class AgendarExameComponent implements OnInit {
   }
 
   formatDateToMySQL(date: Date): string {
-  const dataHora = new Date(date);
-  dataHora.setHours(9, 30, 0, 0); // Define hora como 09:30:00
+    const dataHora = new Date(date);
+    dataHora.setHours(9, 30, 0, 0); // Define hora como 09:30:00
 
-  const pad = (n: number) => n.toString().padStart(2, '0');
+    const pad = (n: number) => n.toString().padStart(2, '0');
 
-  return `${dataHora.getFullYear()}-${pad(dataHora.getMonth() + 1)}-${pad(dataHora.getDate())} ${pad(dataHora.getHours())}:${pad(dataHora.getMinutes())}:${pad(dataHora.getSeconds())}`;
-}
+    return `${dataHora.getFullYear()}-${pad(dataHora.getMonth() + 1)}-${pad(dataHora.getDate())} ${pad(dataHora.getHours())}:${pad(dataHora.getMinutes())}:${pad(dataHora.getSeconds())}`;
+  }
+
+  onExameSelecionado(idExameSelecionado: number | undefined) {
+    const exameSelecionado = this.tipoExame.find(e => e.id_exame === idExameSelecionado);
+    if (exameSelecionado) {
+      this.agendamentoForm.patchValue({
+        instrucoes: exameSelecionado.instrucoes || ''
+      });
+    }
+  }
+
 
 }
