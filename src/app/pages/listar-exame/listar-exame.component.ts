@@ -12,7 +12,7 @@ import { Agendamento } from '../../models/exame';
   standalone: false,
 })
 export class ListarExameComponent implements OnInit {
-  displayedColumns: string[] = ['nome', 'cpf', 'exame', 'data'];
+  displayedColumns: string[] = ['nome', 'cpf','email', 'exame', 'data'];
   dataSource = new MatTableDataSource<Agendamento>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -33,7 +33,6 @@ export class ListarExameComponent implements OnInit {
 carregarAgendamentos(): void {
     this.exameService.getAgendamentos().subscribe({
       next: (response) => {
-        debugger
          this.dataSource = new MatTableDataSource<Agendamento>(response.agendamentos);
          this.dataSource.paginator = this.paginator;
       }

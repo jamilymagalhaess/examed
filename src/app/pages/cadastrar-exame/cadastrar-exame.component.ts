@@ -39,6 +39,15 @@ export class CadastrarExameComponent implements OnInit {
             verticalPosition: 'bottom',
           });
           this.cadastroForm.reset();
+        },
+        error: (err) => {
+          const errorMsg = err?.error?.message || 'Erro ao cadastrar o exame.';
+          this.snackBar.open(errorMsg, 'Fechar', {
+            duration: 5000,
+            panelClass: ['error-snackbar'],
+            horizontalPosition: 'end',
+            verticalPosition: 'bottom',
+          });
         }
       });
     }

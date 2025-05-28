@@ -47,16 +47,6 @@ mat-form-field {
   width: 100%;
 }
 
-.success-snackbar {
-  background-color: #4caf50;
-  color: white;
-}
-
-.error-snackbar {
-  background-color: #f44336;
-  color: white;
-}
-
 @media (max-width: 768px) {
   .form-row.duo {
     flex-direction: column;
@@ -88,7 +78,7 @@ mat-form-field {
 }
 
 ::ng-deep .mat-mdc-snack-bar-container.success-snackbar {
-  background-color: #4CAF50 !important; /* Verde Material Design */
+  background-color: #4CAF50 !important;
   color: white !important;
   font-weight: 600;
   font-family: "Montserrat", sans-serif;
@@ -99,10 +89,30 @@ mat-form-field {
   align-items: center;
 }
 
+::ng-deep .mat-mdc-snack-bar-container.error-snackbar {
+  background-color: #f44336 !important;
+  color: white !important;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+
 ::ng-deep .mat-mdc-snack-bar-container.success-snackbar .mdc-snackbar__surface {
   background-color: transparent !important;
 }
+::ng-deep .mat-mdc-snack-bar-container.error-snackbar .mdc-snackbar__surface {
+  background-color: transparent !important;
+}
+
 
 ::ng-deep .mat-mdc-snack-bar-container.success-snackbar .mdc-snackbar__label {
+  white-space: normal;
+}
+::ng-deep .mat-mdc-snack-bar-container.error-snackbar .mdc-snackbar__label {
   white-space: normal;
 }

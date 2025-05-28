@@ -49,13 +49,13 @@ export class AgendarExameComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {
    this.agendamentoForm = this.fb.group({
-    nome_paciente: ['', Validators.required],
+    nome_paciente: ['', [Validators.required, Validators.pattern(/^[A-Za-zÀ-ÿ\s]+$/)]],
     email_paciente: ['', [Validators.required, Validators.email]],
     id_exame: ['', Validators.required],
     instrucoes: [''],
     cpf: ['', Validators.required],
     cartao_sus: ['', Validators.required],
-    data_hora: ['', Validators.required],
+    data_hora: ['', [Validators.required]],
   });
   }
 
@@ -68,24 +68,35 @@ export class AgendarExameComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const formValue = this.agendamentoForm.value;
+    if (this.agendamentoForm.valid) {
+      const formValue = this.agendamentoForm.value;
 
-    const payload: Agendamento = {
-      ...formValue,
-      data_hora: this.formatDateToMySQL(formValue.data_hora)
-    };
+      const payload: Agendamento = {
+        ...formValue,
+        data_hora: this.formatDateToMySQL(formValue.data_hora)
+      };
 
-    this.exameService.agendaExame(payload).subscribe({
-      next: () => {
-        this.snackBar.open('Exame agendado com sucesso!', 'Fechar', {
-          duration: 5000,
-          panelClass: ['success-snackbar'],
-          horizontalPosition: 'end',
-          verticalPosition: 'bottom',
-        });
-        this.agendamentoForm.reset();
-      },
-    });
+      this.exameService.agendaExame(payload).subscribe({
+        next: () => {
+          this.snackBar.open('Exame agendado com sucesso!', 'Fechar', {
+            duration: 5000,
+            panelClass: ['success-snackbar'],
+            horizontalPosition: 'end',
+            verticalPosition: 'bottom',
+          });
+          this.agendamentoForm.reset();
+        },
+        error: (err) => {
+          const errorMsg = err?.error?.message || 'Erro ao agendar o exame.';
+          this.snackBar.open(errorMsg, 'Fechar', {
+            duration: 5000,
+            panelClass: ['error-snackbar'],
+            horizontalPosition: 'end',
+            verticalPosition: 'bottom',
+          });
+        }
+      });
+    }
   }
 
   formatDateToMySQL(date: Date): string {
@@ -105,6 +116,5 @@ export class AgendarExameComponent implements OnInit {
       });
     }
   }
-
 
 }

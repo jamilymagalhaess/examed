@@ -6,8 +6,11 @@
       <mat-form-field appearance="outline">
         <mat-label>Nome do paciente</mat-label>
         <input matInput formControlName="nome_paciente" required>
-        <mat-error *ngIf="agendamentoForm.get('nome')?.hasError('required')">
+        <mat-error *ngIf="agendamentoForm.get('nome_paciente')?.hasError('required')">
           Nome é obrigatório
+        </mat-error>
+          <mat-error *ngIf="agendamentoForm.get('nome_paciente')?.hasError('pattern')">
+          Nome inválido
         </mat-error>
       </mat-form-field>
 
@@ -24,10 +27,10 @@
       <mat-form-field appearance="outline">
         <mat-label>E-mail do paciente</mat-label>
        <input matInput formControlName="email_paciente" type="email" required>
-        <mat-error *ngIf="agendamentoForm.get('email')?.hasError('required')">
+        <mat-error *ngIf="agendamentoForm.get('email_paciente')?.hasError('required')">
           E-mail é obrigatório
         </mat-error>
-        <mat-error *ngIf="agendamentoForm.get('email')?.hasError('email')">
+        <mat-error *ngIf="agendamentoForm.get('email_paciente')?.hasError('email')">
           Digite um e-mail válido
         </mat-error>
       </mat-form-field>
@@ -35,7 +38,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Cartão do SUS</mat-label>
         <input matInput formControlName="cartao_sus" mask="0000 0000 0000 0000" required>
-        <mat-error *ngIf="agendamentoForm.get('cartaoSus')?.hasError('required')">
+        <mat-error *ngIf="agendamentoForm.get('cartao_sus')?.hasError('required')">
           Cartão do SUS é obrigatório
         </mat-error>
       </mat-form-field>
@@ -59,15 +62,16 @@
       </mat-error>
     </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Data do exame</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="data_hora" required>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="agendamentoForm.get('dataExame')?.hasError('required')">
-          Data do exame é obrigatória
-        </mat-error>
-      </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Data do exame</mat-label>
+      <input matInput [matDatepicker]="picker"
+        formControlName="data_hora" placeholder="dd/mm/aaaa" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="agendamentoForm.get('data_hora')?.hasError('required')">
+        Data é obrigatória
+      </mat-error>
+    </mat-form-field>
     </div>
 
     <div class="form-row">
