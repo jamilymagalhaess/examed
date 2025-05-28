@@ -1,0 +1,28 @@
+<div class="container">
+  <h2>Cadastrar Novo Exame</h2>
+
+  <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()" class="form">
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Nome do Exame</mat-label>
+        <input matInput formControlName="tipo_exame" required>
+        <mat-error *ngIf="cadastroForm.get('tipo_exame')?.hasError('required')">
+          Nome do exame é obrigatório
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Instruções</mat-label>
+        <textarea matInput formControlName="instrucoes" rows="3"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" >
+        CADASTRAR
+      </button>
+    </div>
+  </form>
+</div>
